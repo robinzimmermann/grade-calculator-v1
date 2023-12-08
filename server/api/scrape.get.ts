@@ -1,11 +1,12 @@
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
+import chromium from 'chrome-aws-lambda';
 
 import type { Grades, Hello } from '../models';
 
 // eslint-disable-next-line antfu/top-level-function
 const doScrape = async (): Promise<Grades> => {
   const browser = await puppeteer.launch({
-    headless: 'new',
+    headless: true,
     args: [
       // '--incognito',
       '--window-size=900,800',
@@ -19,6 +20,7 @@ const doScrape = async (): Promise<Grades> => {
       '--disable-notifications',
     ],
     // executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    executablePath: await chromium.executablePath,
     defaultViewport: null,
   });
   const page = await browser.newPage();
