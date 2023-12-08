@@ -12,7 +12,7 @@ import type { Grades, Hello } from '~/server/models'
 const myData: Ref<Grades | null> = ref(null)
 
 async function getGrades() {
-  const { data } = await useFetch<Grades | null>('/scrape', { method: 'get' })
+  const { data } = await useFetch<Grades | null>('/api/scrape', { method: 'get' })
   if (data.value)
 
     myData.value = data.value
