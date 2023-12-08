@@ -5,4 +5,8 @@ export default antfu(
     unocss: true,
     formatters: true,
   },
+  {
+    files: ['**/*.ts'],
+    rules: { 'style/semi': ['error', 'always'] },
+  },
 )

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Hello } from '~/server/models'
+import type { Grades, Hello } from '~/server/models'
 
 // const name = ref('')
 
@@ -9,10 +9,10 @@ import type { Hello } from '~/server/models'
 //     router.push(`/hi/${encodeURIComponent(name.value)}`)
 // }
 
-const myData: Ref<Hello | null> = ref(null)
+const myData: Ref<Grades | null> = ref(null)
 
 async function getGrades() {
-  const { data } = await useFetch<Hello | null>('/hello', { method: 'get' })
+  const { data } = await useFetch<Grades | null>('/scrape', { method: 'get' })
   if (data.value)
 
     myData.value = data.value
@@ -50,5 +50,5 @@ async function getGrades() {
   >
     Get grades
   </button>
-  <div>data: {{ myData?.hello }}</div>
+  <div>data: {{ myData ? myData : 'blank' }}</div>
 </template>
