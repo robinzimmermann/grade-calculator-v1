@@ -4,6 +4,7 @@ NODE_VERSION = "16"
 [build]
 publish = "dist"
 command = "pnpm run build"
+functions = "functions"
 
 [[redirects]]
 from = "/*"
