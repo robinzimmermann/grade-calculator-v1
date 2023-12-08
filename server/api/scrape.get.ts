@@ -1,24 +1,30 @@
-import puppeteer from 'puppeteer';
+import chromium from 'chrome-aws-lambda';
 
 import type { Grades, Hello } from '../models';
 
 // eslint-disable-next-line antfu/top-level-function
 const doScrape = async (): Promise<Grades> => {
-  const browser = await puppeteer.launch({
-    headless: 'new',
-    args: [
-      // '--incognito',
-      '--window-size=900,800',
-      '--window-position=800,50',
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-web-security',
-      '--disable-features=IsolateOrigins,site-per-process',
-      // '--shm-size=6gb',
-      '--disable-notifications',
-    ],
+  const executablePath = await chromium.executablePath || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+  console.log(`executablePath: ${executablePath}`);
+  const cargs = await chromium.args;
+  console.log(`cargs: ${cargs}`);
+  const browser = await chromium.puppeteer.launch({
+    headless: true,
+    args: cargs,
+    // args: [
+    //   // '--incognito',
+    //   '--window-size=900,800',
+    //   '--window-position=800,50',
+    //   '--no-sandbox',
+    //   '--disable-setuid-sandbox',
+    //   '--disable-dev-shm-usage',
+    //   '--disable-web-security',
+    //   '--disable-features=IsolateOrigins,site-per-process',
+    //   // '--shm-size=6gb',
+    //   '--disable-notifications',
+    // ],
     // executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    executablePath,
     defaultViewport: null,
   });
   const page = await browser.newPage();
