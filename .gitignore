@@ -5,6 +5,3 @@ dist
 .nuxt
 .env
 .idea/
-
-# Local Netlify folder
-.netlify
