@@ -1,5 +1,4 @@
-import puppeteer from 'puppeteer-core';
-import chromium from 'chrome-aws-lambda';
+import puppeteer from 'puppeteer';
 
 import type { Grades, Hello } from '../models';
 
@@ -20,7 +19,6 @@ const doScrape = async (): Promise<Grades> => {
       '--disable-notifications',
     ],
     // executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-    executablePath: await chromium.executablePath,
     defaultViewport: null,
   });
   const page = await browser.newPage();
