@@ -42,6 +42,23 @@ function bgColor(grade: string): string {
     default: return 'text-red-600'
   }
 }
+
+const hours = computed((): string => {
+  const h = Math.floor(screenTime.value / 60)
+  return `${h} hour${h === 1 ? '' : 's'}`
+})
+
+const minutes = computed((): string => {
+  const m = screenTime.value % 60
+  return `${m} minute${m === 1 ? '' : 's'}`
+})
+
+const screenTimeHuman = computed((): string => {
+  if (screenTime.value > 60)
+    return `${hours.value} and ${minutes.value}`
+  else
+    return minutes.value
+})
 </script>
 
 <template>
@@ -84,5 +101,7 @@ function bgColor(grade: string): string {
       </div>
     </div>
   </div>
-  <div>screenTime: {{ screenTime }}</div>
+  <div class="mt-10 flex">
+    screenTime: {{ screenTimeHuman }}
+  </div>
 </template>
