@@ -1,15 +1,28 @@
 <script setup lang="ts">
-const name = ref('')
+import type { Hello } from '~/server/models'
 
-const router = useRouter()
-function go() {
-  if (name.value)
-    router.push(`/hi/${encodeURIComponent(name.value)}`)
+// const name = ref('')
+
+// const router = useRouter()
+// function go() {
+//   if (name.value)
+//     router.push(`/hi/${encodeURIComponent(name.value)}`)
+// }
+
+const myData: Ref<Hello | null> = ref(null)
+
+async function getGrades() {
+  const { data } = await useFetch<Hello | null>('/hello', { method: 'get' })
+  if (data.value)
+
+    myData.value = data.value
+
+  // console.log(`date: ${data?.hello}`)
 }
 </script>
 
 <template>
-  <div>
+  <!-- <div>
     <input
       id="input"
       v-model="name"
@@ -27,8 +40,15 @@ function go() {
         :disabled="!name"
         @click="go"
       >
-        GO X
+        GO
       </button>
     </div>
-  </div>
+  </div> -->
+  <button
+    m-3 text-sm btn
+    @click="getGrades"
+  >
+    Get grades
+  </button>
+  <div>data: {{ myData?.hello }}</div>
 </template>
